@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  #devise_for :users
   devise_for :users, controllers: {
     sessions: 'sessions',
     registrations: 'registrations'
@@ -13,5 +12,7 @@ Rails.application.routes.draw do
   scope module: :v2, constraints: ApiConstraints.new(version: 2), defaults: { format: :json }  do
     resources :posts
   end
-
+  
+  root to: 'application#index'
+  match '*path', to: 'application#catch_404', via: :all
 end
